@@ -87,6 +87,13 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "0e3b04ae6aec45b6a5b172f7e42675bb"
+    });
+  </script>
+
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -102,6 +109,127 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    class OverflowError extends Error
+    {
+      constructor(message)
+      {
+        super(message);
+        this.name = "OverflowError";
+      }
+    }
+
+    let count = 0;
+    let count2 = 0;
+
+    errorBtns[0].addEventListener('click', (event) => {
+      console.log("Console Log Demo.");
+    })
+
+    errorBtns[1].addEventListener('click', (event) => {
+      console.error("Console Error Demo.");
+    })
+
+    errorBtns[2].addEventListener('click', (event) => {
+      try
+      {
+        count = count + 1;
+        if (count >= 10)
+        {
+          throw new OverflowError("Variable count is over 10.");
+        }
+      }
+      catch (err)
+      {
+        console.error(err.message);
+        count = 0;
+      }
+      finally
+      {
+        console.log('Count Button: ' + count);
+      }
+    })
+
+    errorBtns[3].addEventListener('click', (event) => {
+      console.warn("Console Warn Demo.")
+    })
+
+    errorBtns[4].addEventListener('click', (event) => {
+      let x = 3;
+      let y = 2; 
+      let reason = "x is expected to be less than y.";
+      console.assert(x < y, {x, y, reason});
+    })
+
+    errorBtns[5].addEventListener('click', (event) => {
+      try
+      {
+        console.clear();
+        if (count != count2)
+        {
+          throw new Error("Count variables need to be reset.");
+        }
+      }
+      catch (err)
+      {
+        console.error(err.message);
+      }
+      finally
+      {
+        count = 0;
+        count2 = 0;
+        console.log("Variables reset to 0.");
+      }
+      
+    })
+
+    errorBtns[6].addEventListener('click', (event) => {
+      console.dir(errorBtns);
+    })
+
+    errorBtns[7].addEventListener('click', (event) => {
+      console.dirxml(errorBtns);
+    })
+
+    errorBtns[8].addEventListener('click', (event) => {
+      console.group();
+    })
+
+    errorBtns[9].addEventListener('click', (event) => {
+      console.groupEnd();
+    })
+
+    errorBtns[10].addEventListener('click', (event) => {
+      console.table(errorBtns);
+    })
+
+    errorBtns[11].addEventListener('click', (event) => {
+      console.time();
+    })
+
+    errorBtns[12].addEventListener('click', (event) => {
+      console.timeEnd();
+    })
+
+    errorBtns[13].addEventListener('click', (event) => {
+      const violin = () => { viola(); };
+      const viola = () => { cello(); };
+      const cello = () => { bass(); };
+      const bass = () => { console.trace(); };
+      violin();
+    })
+
+    errorBtns[14].addEventListener('click', (event) => {
+      throw new OverflowError("Just triggering, dw.");
+      let errorInstance = window.onerror;
+      TrackJS.track(errorInstance);
+    })
+
+    window.addEventListener('error', (event) => {
+      let errorInstance = window.onerror;
+      TrackJS.track(errorInstance);
+    })
+
   </script>
 </body>
 
